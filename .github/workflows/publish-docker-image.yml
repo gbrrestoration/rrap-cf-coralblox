@@ -4,7 +4,7 @@
 # - The Docker metadata action automatically generates appropriate tags based on the release version
 # - The Julia version can be easily updated by changing the JULIA_VERSION environment variable at the top of the workflow
 
-name: Build and Publish rrap-cf-rme Docker Image
+name: Build and Publish rrap-cf-coralblox Docker Image
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}/rrap-cf-rme
+  IMAGE_NAME: ${{ github.repository }}/rrap-cf-corablox
   JULIA_VERSION: 1.11
 
 jobs:
