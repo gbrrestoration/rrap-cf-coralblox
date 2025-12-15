@@ -1,0 +1,25 @@
+
+services:
+  reefmodengine_runner:
+    # image: ghcr.io/gbrrestoration/rrap-cf-rme/rrap-cf-rme:sha-391010c
+    build: 
+      context: .
+      dockerfile: ./docker/Dockerfile.local
+      no_cache: false
+    container_name: reefmodengine_runner
+    environment:
+      RME_PATH: "/shared/rme"  # path inside container where RME data files are mounted
+      OUTPUTS_PATH: "/shared/outputs"  # path inside container where outputs are mounted
+      RUN_ID: "a1"
+
+      TARGET: "MEDIUM"
+      RUN_NAME: "Example"
+      START_YEAR: "2022"
+      END_YEAR: "2099"  # must match run_example.jl
+      RCP_SCEN: "SSP 2.45"
+      GCM: "CNRM_ESM2_1"
+      REPS: "1"  # number of repeats
+
+    volumes:
+      - ./rme:/shared/rme
+      - ./example_outs:/shared/outputs  # this must match location in run_example.jl
