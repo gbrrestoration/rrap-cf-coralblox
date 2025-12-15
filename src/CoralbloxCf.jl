@@ -122,13 +122,15 @@ function run()
     # ==========================================
 
     @info "Generating Scenarios"
-    scenarios = ADRIA.sample(domain, num_scenarios)
+    # Note the below syntax is new to ADRIA @ v0.15.0 (used to be just
+    # ADRIA.sample(dom, num))
+    scenarios = ADRIA.sample_cf(domain, num_scenarios)
 
     @info "Running Simulation"
     result_set = ADRIA.run_scenarios(domain, scenarios, rcp_scenario)
 
     # ==========================================
-    # 5. Post-Processing & Exports (Project A Logic)
+    # 5. Post-Processing & Exports
     # ==========================================
 
     # Move the raw ADRIA result set into the upload folder
