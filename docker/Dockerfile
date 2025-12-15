@@ -25,7 +25,7 @@ COPY ./Project.toml /app/Project.toml
 # Note: Adjust 'rev' if needing a specific branch or tag
 # TODO update rev once ADRIA.jl is fixed on main/latest v
 RUN julia -t auto --project=. \
-    -e 'using Pkg; Pkg.add(url="https://github.com/open-AIMS/ADRIA.jl", rev="0fa0a65459ca75c6c7597e6a11b521d62458f536");'
+    -e 'using Pkg; Pkg.add(url="https://github.com/open-AIMS/ADRIA.jl", rev="0.15.0");'
 
 # 4. Instantiate environment and precompile
 # We strictly use the requested module name: CoralbloxCf
