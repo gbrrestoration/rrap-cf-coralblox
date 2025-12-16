@@ -1,6 +1,8 @@
 module CoralbloxCf
 
 using ADRIA
+# Keep these here due to extension system
+using CairoMakie, GraphMakie, GeoMakie
 using DataFrames, CSV, JSON3
 using Dates, Random
 using AWS, AWSS3
@@ -128,6 +130,15 @@ function run()
 
     @info "Running Simulation"
     result_set = ADRIA.run_scenarios(domain, scenarios, rcp_scenario)
+
+    # Generating relative cover visualisation
+    @info "Relative cover visualisation"
+    scenario_rc = ADRIA.metrics.scenario_relative_cover(result_set)
+    figure = ADRIA.viz.scenarios(rs, scenario_rc)
+    # Put the figure
+    @info "Saving figure to" upload_staging_dir * "/relative_cover.png"
+    save(upload_staging_dir * "/relative_cover.png", figure)
+
 
     # ==========================================
     # 5. Post-Processing & Exports
