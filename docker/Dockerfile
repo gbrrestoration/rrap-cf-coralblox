@@ -16,6 +16,17 @@ RUN apt-get update && apt-get install -y \
 # Try to coerce Julia to build across multiple targets (Optimization)
 ENV JULIA_CPU_TARGET=x86_64;haswell;skylake;skylake-avx512;tigerlake
 
+# Tweak the JULIA_DEPOT_PATH setting so that our shared environments will end up
+# in a user-agnostic location, not in ~/.julia => /root/.julia which is the default.
+# See https://docs.julialang.org/en/v1/manual/environment-variables/#JULIA_DEPOT_PATH
+# This allows apps derived from this image to drop privileges and run as non-root
+# user accounts, but still activate environments configured by this dockerfile.
+ENV JULIA_DEPOT_PATH="/usr/local/share/julia"
+
+# Prepare an empty @adria Julia environment for derived images to use
+RUN mkdir -p "${JULIA_DEPOT_PATH}" && \
+    chmod 0755 "${JULIA_DEPOT_PATH}"
+
 # Copy project files
 COPY ./src /app/src
 COPY ./Manifest.toml /app/Manifest.toml
