@@ -134,10 +134,11 @@ function run()
     # Generating relative cover visualisation
     @info "Relative cover visualisation"
     scenario_rc = ADRIA.metrics.scenario_relative_cover(result_set)
-    figure = ADRIA.viz.scenarios(rs, scenario_rc)
+    figure = ADRIA.viz.scenarios(result_set, scenario_rc)
     # Put the figure into stating directory
-    @info "Saving figure to" upload_staging_dir * "/relative_cover.png"
-    save(upload_staging_dir * "/relative_cover.png", figure)
+    figure_path = joinpath(upload_staging_dir, "relative_cover.png")
+    @info "Saving figure to" figure_path
+    save(figure_path, figure)
 
 
     # ==========================================
